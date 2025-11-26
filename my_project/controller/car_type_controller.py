@@ -14,6 +14,7 @@ from my_project.domain.schemas import (
     CarTypeUpdate,
     CarTypeResponse
 )
+from my_project.domain.schemas import CarResponse
 
 car_type_bp = Blueprint("car_types", __name__, url_prefix="/car-types")
 
@@ -83,4 +84,19 @@ def delete_car_type_endpoint(db: Session, type_id: int):
         return jsonify({"message": "car type deleted"}), 200
     except CarTypeNotFoundException as e:
         return jsonify({"error": str(e)}), 404
+
+
+# М:1 - Отримати всі авто конкретного типу
+@car_type_bp.route("/<int:car_type_id>/cars", methods=["GET"])
+@with_db_session
+def get_car_type_cars_endpoint(db: Session, car_type_id: int):
+    """Get all cars of a specific type"""
+    try:
+        cars = car_type_service.get_car_type_cars(db, car_type_id)
+        result = [CarResponse.model_validate(car).model_dump() for car in cars]
+        return jsonify(result), 200
+    except CarTypeNotFoundException as e:
+        return jsonify({"error": str(e)}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 

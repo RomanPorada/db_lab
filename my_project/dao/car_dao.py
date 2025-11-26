@@ -33,3 +33,15 @@ def update_car(db: Session, db_car, car_update):
 def delete_car(db: Session, db_car):
     db.delete(db_car)
     db.commit()
+
+
+# М:1 - Отримати всі авто водія за його ID
+def get_cars_by_driver_dao(db: Session, driver_id: int):
+    query = select(Car).where(Car.driver_id == driver_id)
+    return db.execute(query).scalars().all()
+
+
+# М:1 - Отримати всі авто типу за ID типу
+def get_cars_by_type_dao(db: Session, car_type_id: int):
+    query = select(Car).where(Car.car_type_id == car_type_id)
+    return db.execute(query).scalars().all()

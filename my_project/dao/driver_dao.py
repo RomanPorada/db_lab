@@ -1,5 +1,5 @@
 from sqlalchemy import select
-from my_project.domain.models import Driver
+from my_project.domain.models import Driver, Car, CarType, driver_car_type
 
 
 def get_driver(db, user_id):
@@ -32,3 +32,37 @@ def update_driver(db, db_driver, driver_update):
 def delete_driver(db, db_driver):
     db.delete(db_driver)
     db.commit()
+
+
+def get_driver_cars_dao(db, driver_id: int):
+    """Get all cars for a specific driver"""
+    query = select(Car).where(Car.driver_id == driver_id)
+    return db.execute(query).scalars().all()
+
+
+def get_driver_car_types_dao(db, driver_id: int):
+    """Get all car types that a driver can work with (M:M)"""
+    query = select(CarType).join(driver_car_type).where(driver_car_type.c.user_id == driver_id)
+    return db.execute(query).scalars().all()
+
+
+def add_driver_car_type_dao(db, driver_id: int, car_type_id: int):
+    """Add a car type to a driver's allowed types (M:M)"""
+    driver = db.execute(select(Driver).where(Driver.user_id == driver_id)).scalars().first()
+    car_type = db.execute(select(CarType).where(CarType.car_type_id == car_type_id)).scalars().first()
+    if not driver or not car_type:
+        raise Exception("Driver or CarType not found")
+    if car_type not in driver.car_types:
+        driver.car_types.append(car_type)
+        db.commit()
+
+
+def remove_driver_car_type_dao(db, driver_id: int, car_type_id: int):
+    """Remove a car type from a driver's allowed types (M:M)"""
+    driver = db.execute(select(Driver).where(Driver.user_id == driver_id)).scalars().first()
+    car_type = db.execute(select(CarType).where(CarType.car_type_id == car_type_id)).scalars().first()
+    if not driver or not car_type:
+        raise Exception("Driver or CarType not found")
+    if car_type in driver.car_types:
+        driver.car_types.remove(car_type)
+        db.commit()

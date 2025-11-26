@@ -31,3 +31,9 @@ def update_existing_car_type(db, car_type_id: int, car_type_update):
 def delete_existing_car_type(db, car_type_id: int):
     db_car_type = get_car_type_by_id(db, car_type_id)
     car_type_dao.delete_car_type(db, db_car_type)
+
+
+def get_car_type_cars(db, car_type_id: int):
+    """Get all cars of a specific type"""
+    db_car_type = get_car_type_by_id(db, car_type_id)
+    return car_type_dao.get_car_type_cars(db, car_type_id)

@@ -1,9 +1,17 @@
 from sqlalchemy import (
-    Column, Integer, BigInteger, String, ForeignKey, TIMESTAMP
+    Column, Integer, BigInteger, String, ForeignKey, TIMESTAMP, Table
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from my_project.database import Base
+
+# М:М junction table: Driver <-> CarType
+driver_car_type = Table(
+    'driver_car_type',
+    Base.metadata,
+    Column('user_id', BigInteger, ForeignKey('drivers.user_id', ondelete='CASCADE'), primary_key=True),
+    Column('car_type_id', BigInteger, ForeignKey('car_types.car_type_id', ondelete='CASCADE'), primary_key=True)
+)
 
 class User(Base):
     __tablename__ = 'users'
@@ -28,6 +36,7 @@ class Driver(Base):
 
     user = relationship("User", back_populates="driver")
     cars = relationship("Car", back_populates="driver", cascade="all, delete-orphan")
+    car_types = relationship("CarType", secondary=driver_car_type, back_populates="drivers")
 
 
 class CarType(Base):
@@ -39,6 +48,7 @@ class CarType(Base):
     description = Column(String(100))
 
     cars = relationship("Car", back_populates="car_type", cascade="all, delete-orphan")
+    drivers = relationship("Driver", secondary=driver_car_type, back_populates="car_types")
 
 
 class Car(Base):

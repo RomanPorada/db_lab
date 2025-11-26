@@ -47,3 +47,43 @@ def delete_existing_driver(db: Session, user_id: int):
     if not driver:
         raise DriverNotFoundException("Driver not found")
     delete_driver(db, driver)
+
+
+# М:1 - Отримати всі авто конкретного водія
+def get_driver_cars(db: Session, driver_id: int):
+    """Get all cars for a specific driver"""
+    from my_project.dao.driver_dao import get_driver_cars_dao
+    driver = get_driver(db, driver_id)
+    if not driver:
+        raise DriverNotFoundException("Driver not found")
+    return get_driver_cars_dao(db, driver_id)
+
+
+# М:М - Отримати всі типи авто для водія
+def get_driver_car_types(db: Session, driver_id: int):
+    """Get all car types that a driver can work with"""
+    from my_project.dao.driver_dao import get_driver_car_types_dao
+    driver = get_driver(db, driver_id)
+    if not driver:
+        raise DriverNotFoundException("Driver not found")
+    return get_driver_car_types_dao(db, driver_id)
+
+
+# М:М - Додати тип авто водієві
+def add_driver_car_type(db: Session, driver_id: int, car_type_id: int):
+    """Add a car type to a driver's allowed types"""
+    from my_project.dao.driver_dao import add_driver_car_type_dao
+    driver = get_driver(db, driver_id)
+    if not driver:
+        raise DriverNotFoundException("Driver not found")
+    return add_driver_car_type_dao(db, driver_id, car_type_id)
+
+
+# М:М - Видалити тип авто у водія
+def remove_driver_car_type(db: Session, driver_id: int, car_type_id: int):
+    """Remove a car type from a driver's allowed types"""
+    from my_project.dao.driver_dao import remove_driver_car_type_dao
+    driver = get_driver(db, driver_id)
+    if not driver:
+        raise DriverNotFoundException("Driver not found")
+    return remove_driver_car_type_dao(db, driver_id, car_type_id)

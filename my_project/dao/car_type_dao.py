@@ -1,5 +1,5 @@
 from sqlalchemy import select
-from my_project.domain.models import CarType
+from my_project.domain.models import CarType, Car
 
 
 def get_car_type(db, car_type_id):
@@ -32,3 +32,9 @@ def update_car_type(db, db_car_type, car_type_update):
 def delete_car_type(db, db_car_type):
     db.delete(db_car_type)
     db.commit()
+
+
+def get_car_type_cars(db, car_type_id: int):
+    """Get all cars of a specific type"""
+    query = select(Car).where(Car.car_type_id == car_type_id)
+    return db.execute(query).scalars().all()
