@@ -49,6 +49,7 @@ class CarType(Base):
 
     cars = relationship("Car", back_populates="car_type", cascade="all, delete-orphan")
     drivers = relationship("Driver", secondary=driver_car_type, back_populates="car_types")
+    routes = relationship("Route", secondary="driver_route", back_populates="drivers", viewonly=True)
 
 
 class Car(Base):

@@ -1,0 +1,581 @@
+{
+  "info": {
+    "name": "Lab 4 - Flask DB API",
+    "description": "Collection of requests for CRUD operations and M:1/M:M relationship queries",
+    "version": "1.0"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create User",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/users/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["users", ""]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John\",\n  \"surname\": \"Doe\",\n  \"phone\": \"+380991234567\",\n  \"email\": \"john@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/users/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["users", ""]
+            }
+          }
+        },
+        {
+          "name": "Get User by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["users", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:5000/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["users", "1"]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"newemail@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/users/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["users", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Drivers",
+      "item": [
+        {
+          "name": "Create Driver",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/drivers/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", ""]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": 1,\n  \"license_number\": \"DL123456\",\n  \"experience_years\": 5\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Drivers",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/drivers/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Driver by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/drivers/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Driver",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:5000/drivers/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", "1"]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"experience_years\": 10\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Driver",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/drivers/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Car Types",
+      "item": [
+        {
+          "name": "Create Car Type",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/car-types/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["car-types", ""]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"SUV\",\n  \"seats\": 5,\n  \"description\": \"Sport Utility Vehicle\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Car Types",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/car-types/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["car-types", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Car Type by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/car-types/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["car-types", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Car Type",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:5000/car-types/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["car-types", "1"]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"seats\": 7\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Car Type",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/car-types/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["car-types", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cars - CRUD",
+      "item": [
+        {
+          "name": "Create Car",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/cars/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["cars", ""]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"driver_id\": 1,\n  \"car_id\": 1,\n  \"car_type_id\": 1,\n  \"brand\": \"Toyota\",\n  \"model\": \"Corolla\",\n  \"plate_number\": \"AA1234BB\",\n  \"year\": 2020\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Cars",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/cars/",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["cars", ""]
+            }
+          }
+        },
+        {
+          "name": "Get Car by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/cars/1?driver_id=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["cars", "1"],
+              "query": [{"key": "driver_id", "value": "1"}]
+            }
+          }
+        },
+        {
+          "name": "Update Car",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:5000/cars/1?driver_id=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["cars", "1"],
+              "query": [{"key": "driver_id", "value": "1"}]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"year\": 2021\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Car",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/cars/1?driver_id=1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["cars", "1"],
+              "query": [{"key": "driver_id", "value": "1"}]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "M:1 Relationships",
+      "item": [
+        {
+          "name": "Get All Cars for Driver",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/cars/by-driver/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["cars", "by-driver", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get All Cars of Type",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/cars/by-type/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["cars", "by-type", "1"]
+            }
+          }
+        },
+        {
+          "name": "Get Cars for Specific Driver (alt endpoint)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/drivers/1/cars",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", "1", "cars"]
+            }
+          }
+        },
+        {
+          "name": "Get Cars for Specific Car Type",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/car-types/1/cars",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["car-types", "1", "cars"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "M:M Relationships (Driver <-> CarType)",
+      "item": [
+        {
+          "name": "Get Car Types for Driver",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/drivers/1/car-types",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", "1", "car-types"]
+            }
+          }
+        },
+        {
+          "name": "Add Car Type to Driver",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/drivers/1/car-types/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", "1", "car-types", "1"]
+            }
+          }
+        },
+        {
+          "name": "Remove Car Type from Driver",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/drivers/1/car-types/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["drivers", "1", "car-types", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "SQL Procedures",
+      "item": [
+        {
+          "name": "sp_add_user",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/procedures/sp_add_user",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "sp_add_user"]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice\",\n  \"surname\": \"Smith\",\n  \"phone\": \"+380991111111\",\n  \"email\": \"alice@test.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "sp_link_driver_route_by_names",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/procedures/sp_link_driver_route_by_names",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "sp_link_driver_route_by_names"]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John\",\n  \"surname\": \"Doe\",\n  \"start\": \"Kyiv\",\n  \"end\": \"Kharkiv\"\n}"
+            }
+          }
+        },
+        {
+          "name": "sp_insert_noname_package",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/procedures/sp_insert_noname_package",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "sp_insert_noname_package"]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            }
+          }
+        },
+        {
+          "name": "sp_show_trip_stats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/procedures/sp_show_trip_stats",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "sp_show_trip_stats"]
+            }
+          }
+        },
+        {
+          "name": "sp_split_table_random",
+          "request": {
+            "method": "POST",
+            "url": {
+              "raw": "http://localhost:5000/procedures/sp_split_table_random",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "sp_split_table_random"]
+            },
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"table_name\": \"trips\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "SQL Functions",
+      "item": [
+        {
+          "name": "fn_trip_price_stat - MAX",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/procedures/fn_trip_price_stat/MAX",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "fn_trip_price_stat", "MAX"]
+            }
+          }
+        },
+        {
+          "name": "fn_trip_price_stat - MIN",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/procedures/fn_trip_price_stat/MIN",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "fn_trip_price_stat", "MIN"]
+            }
+          }
+        },
+        {
+          "name": "fn_trip_price_stat - AVG",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/procedures/fn_trip_price_stat/AVG",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "fn_trip_price_stat", "AVG"]
+            }
+          }
+        },
+        {
+          "name": "fn_trip_price_stat - SUM",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/procedures/fn_trip_price_stat/SUM",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["procedures", "fn_trip_price_stat", "SUM"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

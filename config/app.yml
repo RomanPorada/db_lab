@@ -3,4 +3,4 @@ database:
   db_pass: "roma31pora01"
   db_host: "localhost"
   db_port: 3306
-  db_name: "lab_4"
+  db_name: "uklon_db"

@@ -101,7 +101,41 @@ Pydantic моделі для валідації і серіалізації:
 1. **Імпортуйте колекцію** — відкрийте `Postman_Collection.json` у Postman
 2. **Запустіть запити** — всі examples готові до використання
 
-### Приклади запитів
+### SQL Процедури та Функції (Endpoints)
+
+#### Процедури (POST)
+- **`POST /procedures/sp_add_user`** — додати користувача
+  ```json
+  {"name": "Alice", "surname": "Smith", "phone": "+380991111111", "email": "alice@test.com"}
+  ```
+
+- **`POST /procedures/sp_link_driver_route_by_names`** — зв'язати водія з маршрутом
+  ```json
+  {"name": "John", "surname": "Doe", "start": "Kyiv", "end": "Kharkiv"}
+  ```
+
+- **`POST /procedures/sp_insert_noname_package`** — додати 10 анонімних користувачів
+  ```json
+  {}
+  ```
+
+- **`POST /procedures/sp_split_table_random`** — розділити таблицю випадково
+  ```json
+  {"table_name": "trips"}
+  ```
+
+#### Процедури (GET)
+- **`GET /procedures/sp_show_trip_stats`** — статистика поїздок
+  - Повертає: `total_trips`, `max_price`, `min_price`, `avg_price`, `sum_price`
+
+#### Функції (GET)
+- **`GET /procedures/fn_trip_price_stat/{function_type}`** — статистика ціни поїздок
+  - `function_type`: `MAX`, `MIN`, `AVG`, `SUM`
+  - Приклади:
+    - `/procedures/fn_trip_price_stat/MAX` — максимальна ціна
+    - `/procedures/fn_trip_price_stat/MIN` — мінімальна ціна
+    - `/procedures/fn_trip_price_stat/AVG` — середня ціна
+    - `/procedures/fn_trip_price_stat/SUM` — сума всіх цін
 
 #### Створення користувача
 ```bash
@@ -152,8 +186,9 @@ GET http://localhost:5000/drivers/1/car-types
 - ✅ Сервіси містять бізнес-логіку
 - ✅ DAO містить усі SQL-методи
 - ✅ Постман-колекція готова до тестування
+- ✅ SQL процедури та функції підтримані через endpoints
 
-## Готові endpoint'и (29 всього)
+## Готові endpoint'и (35 всього)
 
 ```
 Users (5):
@@ -182,14 +217,24 @@ CarTypes (6):
   DELETE /car-types/<id>
   GET    /car-types/<id>/cars        [M:1]
 
-Cars (9):
+Cars (5):
   POST   /cars/
   GET    /cars/
   GET    /cars/<id>?driver_id=<id>
   PUT    /cars/<id>?driver_id=<id>
   DELETE /cars/<id>?driver_id=<id>
-  GET    /cars/by-driver/<driver_id> [M:1]
-  GET    /cars/by-type/<car_type_id> [M:1]
+
+SQL Procedures & Functions (6):
+  POST   /procedures/sp_add_user
+  POST   /procedures/sp_link_driver_route_by_names
+  POST   /procedures/sp_insert_noname_package
+  GET    /procedures/sp_show_trip_stats
+  POST   /procedures/sp_split_table_random
+  GET    /procedures/fn_trip_price_stat/{MAX|MIN|AVG|SUM}
 ```
 
-Усього: **29 endpoint'ів**
+Всього: **35 endpoint'ів**
+
+### Документація по процедурам
+
+Детальне описання з прикладами для всіх процедур та функцій — див. **[PROCEDURES_USAGE.md](PROCEDURES_USAGE.md)**
